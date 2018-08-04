@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="jquery.js"></script>
+
+</head>
+<body>
+<div>hello</div>
+  <ul id="output"></ul>
+<input type="text" id="sendText">
+<button id="send"> send</button>
+<script>
+    var socket = io.connect('http://localhost:4000');
+    var btn = document.getElementById('send'),
+        sendText =document.getElementById('sendText')
+
+    btn.addEventListener('click',()=>{
+        socket.emit('chat', {
+            message:sendText.value
+        })
+    })
+
+    socket.on('chat',(data)=>{
+        console.log('ddd')
+          $('#output').append('<li>'+data.message+'</li>')
+    })
+</script>
+</body>
+</html>
